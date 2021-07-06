@@ -13,7 +13,22 @@ for (const file of commandFiles) {
 	client.commands.set(command.name, command);
 }
 
-		   
+client.on('message', message => {
+	if (message.content === '!bdjs info') {
+        const {Client, MessageEmbed} = require('discord.js');
+        const bdjsinfoembed = new MessageEmbed()
+        .setTitle('BDJS info')
+        .setDescription('Hello there thanks for using BDJS')
+        .addField('GitHub', 'https://github.com/betterdjs/betterdjs', true)
+        .addField('Creators', 'James, DinoTheDev, A V I X I T Y, DottoArts', true)
+        .addField('Repo Helpers','Xcyth, Azuz, z_t0ht, Kyle, Joey, FC', true)
+        .addField('Package Name','better.djs', true)
+        .addField('Version','v12.0.1', true)
+        .addField('Support Server','https://discord.gg/NAxj8Qg6vz', true)
+        .addField('Docs Version','v1.0.0', true)
+        .addField('Website','https://betterdjs.tk/', true)
+        channel.send(bdjsinfoembed)
+           }});		   
 
 client.once('ready', () => {
 	console.log(client.user.tag + `Is Now Online! Loading ${client.channels.cache.size} cached channels, for a total of ${client.users.cache.size} users`);

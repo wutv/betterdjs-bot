@@ -3,6 +3,8 @@ const client = new Discord.Client();
 const config = require('./config.json');
 const prefix = config.prefix;
 const fs = require('fs');
+const { exec } = require('child_process');
+const auth = require('./auth.json');
 
 client.commands = new Discord.Collection();
 
@@ -13,8 +15,23 @@ for (const file of commandFiles) {
 	client.commands.set(command.name, command);
 } 
 
-client.once('ready', () => {
-	console.log(client.user.tag + `Is Now Online! Loading ${client.channels.cache.size} cached channels, for a total of ${client.users.cache.size} users`);
+client.on('ready', () => {
+    setInterval(() => {
+        exec(`git pull`, (error, stdout) => {
+            const response = error || stdout;
+            if (!error) {
+                if (response.includes('Already up to date.')) {
+                     console.info('Already Up to Date.');
+                } else {
+                  console.log('update :troll:')
+                    setTimeout(() => {
+                        process.exit();
+                    }, 1000);
+                }
+            }
+        });
+    }, 30000);
+    console.log(client.user.tag + `Is Now Online! Loading ${client.channels.cache.size} cached channels, for a total of ${client.users.cache.size} users`);
 });
 
 client.on('message', message => {
@@ -178,4 +195,4 @@ client.on("message", message => {
     }
 })
 
-client.login(config.token);
+client.login(auth.token);

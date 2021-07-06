@@ -36,4 +36,148 @@ client.on('message', message => {
 	}
 });
 
+//Ticket
+client.on("message", message => {
+    if (message.content == "!test") {
+        message.channel.send("Click on the emoji below to open a ticket!")
+            .then(msg => msg.react("📩")) 
+    }
+})
+
+
+client.on("messageReactionAdd", async function (messageReaction, user) {
+    if (user.bot) return
+
+    if (messageReaction.message.partial) await messageReaction.message.fetch();
+
+    if (messageReaction._emoji.name == "📩") { 
+        if (messageReaction.message.channel.id == "861908910369013770") { 
+            messageReaction.users.remove(user);
+            var server = messageReaction.message.channel.guild;
+            if (server.channels.cache.find(channel => channel.topic == `User ID: ${user.id}`)) {
+                user.send("You already have a ticket opened!").catch(() => { })
+                return
+            }
+
+            server.channels.create(user.username, {
+                type: "text"
+            }).then(channel => {
+                channel.setTopic(`User ID: ${user.id}`);
+                channel.setParent("861908825454673941")
+                let server = config.guild;
+                let staffrole = server.roles.cache.find(role => role.name === "[👮] Staff");
+                channel.overwritePermissions([
+                    {
+                        id: server.id,
+                        deny: ["VIEW_CHANNEL"]
+                    },
+                    {
+                        id: user.id,
+                        allow: ["VIEW_CHANNEL"]
+                    },
+                    {
+                        id: staffrole,
+                        allow:["VIEW_CHANNEL"]
+                    }
+                ])
+                channel.send("Thank you for opening a ticket! How can we help you?")
+            })
+        }
+    }
+})
+
+client.on("message", message => {
+    if (message.content == "!close") {
+        var topic = message.channel.topic;
+        if (!topic) {
+            message.channel.send("You cant use this command here");
+            return
+        }
+
+        if (topic.startsWith("User ID:")) {
+            var idUser = topic.slice(9);
+            if (message.author.id == idUser || message.member.hasPermission("MANAGE_CHANNELS")) {
+                message.channel.delete();
+            }
+        }
+        else {
+            message.channel.send("You cant use this command here")
+        }
+    }
+
+    if (message.content.startsWith("!add")) {
+        var topic = message.channel.topic;
+        if (!topic) {
+            message.channel.send("You cant use this command here");
+            return
+        }
+
+        if (topic.startsWith("User ID:")) {
+            var idUser = topic.slice(9);
+            if (message.author.id == idUser || message.member.hasPermission("MANAGE_CHANNELS")) {
+                var user = message.mentions.members.first();
+                if (!user) {
+                    message.channel.send("Invalid user");
+                    return
+                }
+
+                var hasPermission = message.channel.permissionsFor(user).has("VIEW_CHANNEL", true)
+
+                if (hasPermission) {
+                    message.channel.send("This user already has access to the ticket")
+                    return
+                }
+
+                message.channel.updateOverwrite(user, {
+                    VIEW_CHANNEL: true
+                })
+
+                message.channel.send(`${user.toString()} has been added to the ticket`)
+            }
+        }
+        else {
+            message.channel.send("You cant use this command here!")
+        }
+    }
+    if (message.content.startsWith("!remove")) {
+        var topic = message.channel.topic;
+        if (!topic) {
+            message.channel.send("You cant use this command here!");
+            return
+        }
+
+        if (topic.startsWith("User ID:")) {
+            var idUser = topic.slice(9);
+            if (message.author.id == idUser || message.member.hasPermission("MANAGE_CHANNELS")) {
+                var user = message.mentions.members.first();
+                if (!user) {
+                    message.channel.send("This is not a valid user.");
+                    return
+                }
+
+                var hasPermission = message.channel.permissionsFor(user).has("VIEW_CHANNEL", true)
+
+                if (!hasPermission) {
+                    message.channel.send("This user already have access to the ticket!")
+                    return
+                }
+
+                if (user.hasPermission("MANAGE_CHANNELS")) {
+                    message.channel.send("You cant remove this user")
+                    return
+                }
+
+                message.channel.updateOverwrite(user, {
+                    VIEW_CHANNEL: false
+                })
+
+                message.channel.send(`${user.toString()} has been removed from the ticket!`)
+            }
+        }
+        else {
+            message.channel.send("You cannot use this command")
+        }
+    }
+})
+
 client.login(config.token);

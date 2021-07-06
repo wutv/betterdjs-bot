@@ -3,7 +3,7 @@ const client = new Discord.Client();
 const config = require('./config.json');
 
 client.once('ready', () => {
-	console.log('Ready!');
+	console.log(client.user.tag + `Is Now Online! Loading ${client.channels.cache.size} cached channels, for a total of ${client.users.cache.size} users`);
 });
 
 client.on('message', message => {

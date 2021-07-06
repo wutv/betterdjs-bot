@@ -27,7 +27,7 @@ client.on('message', message => {
         .addField('Support Server','https://discord.gg/NAxj8Qg6vz', true)
         .addField('Docs Version','v1.0.0', true)
         .addField('Website','https://betterdjs.tk/', true)
-        channel.send(bdjsinfoembed)
+        message.channel.send(bdjsinfoembed)
            }});		   
 
 client.once('ready', () => {

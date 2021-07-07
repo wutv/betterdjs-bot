@@ -35,12 +35,12 @@ client.on('ready', () => {
 });
 
 client.on('guildMemberAdd', member => {
-  const channel = member.guild.channels.cache.find(ch => ch.name === '👋︱welcome');
-  if (!channel) return;
-  const welcomeembed = new MessageEmbed()
+  const general = member.guild.channels.cache.find(ch => ch.name === '👋︱welcome');
+  if (!general) return;
+  const welcomeEmbed = new MessageEmbed()
   .setTitle('Welcome')
-  .setDescription('Welcome to the server ${member} please read the [Rules](https://discord.com/channels/861167693096026122/861283938672181288) and get started [Here](https://discord.com/channels/861167693096026122/861285637919211520) we hope you have a wonderful time here')
-  channel.send(welcomeembed);
+  .setDescription(`Welcome to the server ${member} please read the [Rules](https://discord.com/channels/861167693096026122/861283938672181288) and get started [Here](https://discord.com/channels/861167693096026122/861285637919211520) we hope you have a wonderful time here`)
+  general.send(welcomeEmbed);
 });
 
 client.on('message', message => {

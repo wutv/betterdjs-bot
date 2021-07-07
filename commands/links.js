@@ -9,10 +9,10 @@ module.exports = {
      const links = new MessageEmbed()
      .setTitle('BDJS Links')
      .setDescription('BetterDJS Links')
-     .addField('Website','https://betterdjs.tk', true)
-     .addField('Docs','https://betterdjs.tk/docs/', true)
-     .addField('GitHub','https://github.com/betterdjs/better.djs', true)
-     .addField('NPM','https://www.npmjs.com/package/better.djs', true)
+     .addField('> Website','https://betterdjs.tk', true)
+     .addField('> Docs','https://betterdjs.tk/docs/', true)
+     .addField('> GitHub','https://github.com/betterdjs/better.djs', true)
+     .addField('> NPM','https://www.npmjs.com/package/better.djs', true)
      message.channel.send(links)
 	},
 };

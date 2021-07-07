@@ -34,6 +34,12 @@ client.on('ready', () => {
     console.log(client.user.tag + `Is Now Online! Loading ${client.channels.cache.size} cached channels, for a total of ${client.users.cache.size} users`);
 });
 
+client.on('guildMemberAdd', member => {
+  const channel = member.guild.channels.cache.find(ch => ch.name === '👋︱welcome');
+  if (!channel) return;
+  channel.send(`Welcome to the server, ${member} please read the [Rules](https://discord.com/channels/861167693096026122/861283938672181288) and get started [Here](https://discord.com/channels/861167693096026122/861285637919211520) we hope you have a wonderful time here`);
+});
+
 client.on('message', message => {
 	if (!message.content.startsWith(prefix) || message.author.bot) return;
 

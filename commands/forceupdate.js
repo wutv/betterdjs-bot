@@ -26,6 +26,5 @@ module.exports = {
 		.setFooter(`${message.guild.name}` , message.author.avatarURL({ dynamic: true }))
 		message.channel.send(updateEmbed);
 		
-		client.channels.cache.get('862049598801444874').send('Forceful GitHub Pull By Dev Team ');
 	},
 };

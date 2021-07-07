@@ -18,19 +18,19 @@ for (const file of commandFiles) {
 client.on('ready', () => {
     setInterval(() => {
         exec(`git pull`, (error, stdout) => {
-            const response = error || stdout;
+            let response = (error || stdout);
             if (!error) {
-                if (response.includes('Already up to date.')) {
-                     console.info('Already Up to Date.');
+                if (response.includes("Already up to date.")) {
+                    console.log('Bot already up to date. No changes since last pull')
                 } else {
-                  console.log('update :troll:')
+                    client.channels.cache.get('862049598801444874').send('**[AUTOMATIC]** \nNew update on GitHub. Pulling. \n\nLogs: \n```' + response + "```" + "\n\n\n**Restarting bot**")
                     setTimeout(() => {
                         process.exit();
-                    }, 1000);
+                    }, 1000)
                 }
             }
-        });
-    }, 30000);
+        })
+    }, 30000)
     console.log(client.user.tag + `Is Now Online! Loading ${client.channels.cache.size} cached channels, for a total of ${client.users.cache.size} users`);
 });
 

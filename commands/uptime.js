@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const os = require('os');
+const ms = require('ms');
 
 module.exports = {
 	name: 'uptime',
@@ -15,8 +16,8 @@ module.exports = {
   let uptime = `${days} days, ${hours} hours, ${minutes} minutes and ${seconds} seconds`;
 		const uptimeEmbed = new Discord.MessageEmbed()
 		.setTitle('Uptime')
-        	.addField(`> System Uptime` , `\`\`\`${os.uptime}\`\`\``)
-		.addField(`> Bot Uptime` , `\`\`\`${client.uptime}\`\`\``)
+        	.addField(`> System Uptime` , `\`\`\`${ms(os.uptime() * 1000, { long: true })}\`\`\``)
+		.addField(`> Bot Uptime` , `\`\`\`${uptime}\`\`\``)
 		.setFooter(`${message.guild.name}` , message.author.avatarURL({ dynamic: true }))
 		message.channel.send(uptimeEmbed);
 	},

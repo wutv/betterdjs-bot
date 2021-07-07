@@ -13,6 +13,6 @@ module.exports = {
      .addField('Docs','https://betterdjs.tk/docs/', true)
      .addField('GitHub','https://github.com/betterdjs/better.djs', true)
      .addField('NPM','https://www.npmjs.com/package/better.djs', true)
-     channel.send(links)
+     message.channel.send(links)
 	},
 };

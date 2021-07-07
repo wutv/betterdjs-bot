@@ -53,7 +53,7 @@ client.on('message', message => {
 
 //Ticket
 client.on("message", message => {
-    if (message.content == "!test") {
+    if (message.content == "!testing") {
         message.channel.send("Click on the emoji below to open a ticket!")
             .then(msg => msg.react("📩")) 
     }

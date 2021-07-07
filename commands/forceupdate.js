@@ -5,7 +5,8 @@ module.exports = {
 	name: 'forceupdate',
 	description: 'forceupdate',
 	async run(message, client, args) { 
-	
+		
+	if (message.member.roles.cache.find(r => r.id === "861285396704526387")) {
     exec(`git pull`, (error, stdout) => {
             let response = (error || stdout);
             if (!error) {
@@ -18,6 +19,8 @@ module.exports = {
                     }, 1000)
                 }
             }
-        })	
+        })
+	} else {
+	message.channel.send('No perms :(');
 	},
 };

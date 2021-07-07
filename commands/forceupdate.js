@@ -22,5 +22,6 @@ module.exports = {
         })
 	} else {
 	message.channel.send('No perms :(');
+	}
 	},
 };

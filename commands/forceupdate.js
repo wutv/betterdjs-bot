@@ -4,7 +4,9 @@ const { exec } = require('child_process');
 module.exports = {
 	name: 'forceupdate',
 	description: 'forceupdate!',
-	async run(message, client, args) {
+	async run(message, client, args) { 
+	let devRole = message.guild.roles.find('861323159809687592');
+        if(!message.member.roles.has(devRole)) return;
     exec(`git pull`, (error, stdout) => {
             let response = (error || stdout);
             if (!error) {

@@ -6,17 +6,7 @@ const fs = require('fs');
 const { exec } = require('child_process');
 const auth = require('./auth.json');
 
-client.commands = new Discord.Collection();
-
-const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
-
-for (const file of commandFiles) {
-	const command = require(`./commands/${file}`);
-	client.commands.set(command.name, command);
-} 
-
-client.on('ready', () => {
-    setInterval(() => {
+setInterval(() => {
         exec(`git pull`, (error, stdout) => {
             let response = (error || stdout);
             if (!error) {
@@ -31,6 +21,17 @@ client.on('ready', () => {
             }
         })
     }, 30000)
+
+client.commands = new Discord.Collection();
+
+const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
+
+for (const file of commandFiles) {
+	const command = require(`./commands/${file}`);
+	client.commands.set(command.name, command);
+} 
+
+client.on('ready', () => {
     console.log(client.user.tag + `Is Now Online! Loading ${client.channels.cache.size} cached channels, for a total of ${client.users.cache.size} users`);
 });
 

@@ -5,6 +5,7 @@ const prefix = config.prefix;
 const fs = require('fs');
 const { exec } = require('child_process');
 const auth = require('./auth.json');
+//Hi :D
 
 client.commands = new Discord.Collection();
 

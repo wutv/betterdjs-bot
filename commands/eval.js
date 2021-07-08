@@ -5,8 +5,8 @@ const fs = require('fs');
 
 module.exports = {
     name: 'eval',
-    description: 'Returns Links assioscated with BDJS',
-    async run(message, arguments, text, client) => {
+    description: 'Eval',
+    async run(message, arguments, text, client) {
         let args = message.content.split(' ').slice(1);
         let cont = message.content.split(' ').slice(1).join(' ');
 

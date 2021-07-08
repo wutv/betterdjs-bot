@@ -32,11 +32,13 @@ module.exports = {
                     })
                 let rege = new RegExp(auth.token, "gi");
                 let rege2 = new RegExp("9 + 10", "gi");
+                let rege3 = new RegExp("forEach", "gi");
                 text = text
                     .replace(/`/g, '`' + String.fromCharCode(8203))
                     .replace(/@/g, '@' + String.fromCharCode(8203))
                     .replace(rege, 'sike you thought')
                     .replace(rege2, '21')
+                    .replace(rege3, '69420')
                 return text;
             };
             message.channel.send('Evaluating...').then(msg => {

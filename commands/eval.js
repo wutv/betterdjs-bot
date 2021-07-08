@@ -2,6 +2,7 @@ const Discord = require('discord.js');
 const execSync = require('child_process').execSync;
 const ms = require('ms');
 const fs = require('fs');
+const auth = require('../auth.json');
 
 module.exports = {
     name: 'eval',

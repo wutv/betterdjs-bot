@@ -6,7 +6,7 @@ module.exports = {
 	description: 'forceupdate',
 	async run(message, client, args) { 
 	
-	if (!message.member.roles.cache.find(r => r.id === "861285396704526387")) return;
+	if (!message.member.roles.cache.find(r => r.id === "862794758165364776")) return;
     exec(`git pull`, (error, stdout) => {
             let response = (error || stdout);
             if (!error) {

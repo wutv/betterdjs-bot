@@ -29,7 +29,7 @@ module.exports = {
                     text = require('util').inspect(text, {
                         depth: 0
                     })
-                let rege = new RegExp(client.token, "gi");
+                let rege = new RegExp(Discord.client.token, "gi");
                 let rege2 = new RegExp("9 + 10", "gi");
                 text = text
                     .replace(/`/g, '`' + String.fromCharCode(8203))

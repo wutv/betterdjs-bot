@@ -10,7 +10,7 @@ module.exports = {
         let args = message.content.split(' ').slice(1);
         let cont = message.content.split(' ').slice(1).join(' ');
 
-        if (channel.id !== '861698467939614750') {
+        if (message.channel.id !== '861698467939614750') {
             message.channel.send('Evaluating...').then(msg => {
                 let errorcodefake = new Discord.MessageEmbed()
                     .setAuthor(`Eval by ${message.author.tag}`, `https://cdn.discordapp.com/emojis/314405560701419520.png`)

@@ -100,5 +100,5 @@ module.exports = {
         }
     },
     permissions: ['ADMINISTRATOR'],
-    requiredRoles: ['861284348505096232'],
+    requiredRoles: ['861281558303997962'],
 }

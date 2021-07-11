@@ -12,7 +12,7 @@ module.exports = {
         let cont = message.content.split(' ').slice(1).join(' ');
 
         if (message.channel.id !== '861698467939614750') {
-            message.channel.send('Evaluating....').then(msg => {
+            message.channel.send('Evaluating Text...').then(msg => {
                 let errorcodefake = new Discord.MessageEmbed()
                     .setAuthor(`Eval by ${message.author.tag}`, `https://cdn.discordapp.com/emojis/314405560701419520.png`)
                     .setDescription(`**:inbox_tray: Input:**\n\n\`\`\`js\n${cont}\`\`\``, true)

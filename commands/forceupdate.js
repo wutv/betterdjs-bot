@@ -11,7 +11,7 @@ module.exports = {
             let response = (error || stdout);
             if (!error) {
                 if (response.includes("Already up to date.")) {
-                    message.channel.send('Bot already up to date. No changes since last pull')
+                    message.channel.send('It looks like the bot is already up to date. Have you checked <#862049598801444874>?')
                 } else {
                     client.channels.cache.get('862049598801444874').send('**[AUTOMATIC UPDATER]** \nNew update on GitHub. Pulling. \n\nLogs: \n```' + response + "```" + "\n\n\n**Restarting bot**" + response + "THE UPDATE WAS FORCED BY A STAFF MEMBER!")
 		    setTimeout(() => {

@@ -13,6 +13,7 @@ module.exports = {
      .addField('> Docs','https://betterdjs.tk/docs/', true)
      .addField('> GitHub','https://github.com/betterdjs/better.djs', true)
      .addField('> NPM','https://www.npmjs.com/package/better.djs', true)
+     .addField('> Server Invite','https://discord.gg/NAxj8Qg6vz', true)
      message.channel.send(links)
 	},
 };

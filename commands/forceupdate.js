@@ -14,10 +14,7 @@ module.exports = {
                 if (response.includes("Already up to date.")) {
                     message.channel.send('It looks like the bot is already up to date. Have you checked <#862049598801444874>?')
                 } else {
-			updater = new Discord.MessageEmbed()
-			.setTitle('**[FORCED UPDATE]**')
-			.setDescription('New update on GitHub. Pulling. \n\nLogs: \n```' + response + "```" + "\n\n\n**Restarting bot**" + response')
-                    client.channels.cache.get('862049598801444874').send(updater + "This was forced by a staff member")
+			client.channels.cache.get('862049598801444874').send('**[AUTOMATIC UPDATER]** \nNew update on GitHub. Pulling. \n\nLogs: \n```' + response + "```" + "\n\n\n**Restarting bot**" + response + "THE UPDATE WAS FORCED BY A STAFF MEMBER!")
 		    setTimeout(() => {
                         process.exit();
                     }, 1000)

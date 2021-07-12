@@ -5,8 +5,10 @@
   "author": "betterdjsteam",
   "license": "MIT",
   "dependencies": {
+    "@devsnowflake/quick.db": "^2.0.3",
     "discord.js": "^12.5.3",
+    "ms": "^2.1.3",
     "os": "^0.1.1",
-    "ms": "^2.1.3"
+    "winston": "^3.3.3"
   }
 }

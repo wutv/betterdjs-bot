@@ -1,6 +1,8 @@
 const Discord = require("discord.js"),
   Client = require("./src/Client.js");
 
+// Basic client initialization.
+
 const client = new Client({
   database: {
     name: "./src/data/db.sqlite",

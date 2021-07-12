@@ -4,7 +4,9 @@ module.exports = {
   name: "ready",
   once: true,
   async run(client) {
-    const updateChannel = client.channels.cache.get(client.config.channels.update);
+    const updateChannel = client.channels.cache.get(
+      client.config.channels.update
+    );
     setInterval(() => {
       exec("git pull", (error, stdout) => {
         let response = error || stdout;

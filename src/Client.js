@@ -30,7 +30,9 @@ module.exports = class BetterDjsClient extends BaseClient {
         require(resolve(join(this.inputOptions.paths.events, eventPath)))
     );
     for (const event of events)
-      event.once ? super.once(event.name, (...args) => event.run(...args, client)) : super.on(event.name, (...args) => event.run(...args, client));
+      event.once
+        ? super.once(event.name, (...args) => event.run(...args, client))
+        : super.on(event.name, (...args) => event.run(...args, client));
   }
 
   /**

@@ -107,6 +107,6 @@ module.exports = {
       return message.channel.send({ embed });
     }
   },
-  permissions: ["ADMINISTRATOR"],
+  userPermissions: ["ADMINISTRATOR"],
   requiredRoles: ["861323159809687592"],
 };

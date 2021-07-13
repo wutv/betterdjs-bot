@@ -5,6 +5,6 @@ module.exports = {
   name: "say",
   description: "none",
   async run(message, args) {
-    message.content - user.username;
+    message.channel.send(message.content);
   },
 };

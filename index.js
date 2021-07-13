@@ -15,6 +15,7 @@ const client = new Client({
     commands: "./src/commands",
     logger: "./src/structures/internal/Logger.js",
   },
+  allowedMentions: { parse: ["users"] }
 });
 global.client = client;
 

@@ -15,15 +15,16 @@ module.exports = {
     let seconds = Math.floor(totalSeconds % 60);
     let uptime = `${days} days, ${hours} hours, ${minutes} minutes and ${seconds} seconds`;
     function uptimeDate(dateInp) {
-      return ((new Date().getTime - dateInp) / 1000).toString().split(".")[0];
+      const dateI = parseInt(dateInp.toString().split(".").join(" "));
+      return ((new Date().getTime() - dateI) / 1000).toString().split(".")[0];
     }
     const uptimeEmbed = new Discord.MessageEmbed()
       .setTitle("Uptime")
       .addField(
         `> System Uptime`,
-        `\`\`\`<t:${uptimeDate(process.uptime())}>\`\`\``
+        `The system has been up since <t:${uptimeDate(process.uptime())}>, or <t:${uptimeDate(process.uptime())}:R>!`
       )
-      .addField(`> Bot Uptime`, `\`\`\`${uptime}\`\`\``)
+      .addField(`> Bot Uptime`, `\`\`\`${uptime}\`\`\` \n The bot has been up since <t:${uptimeDate(client.uptime)}>, or, <t:${uptimeDate(process.uptime())}:R>`)
       .setFooter(
         `${message.guild.name}`,
         message.author.avatarURL({ dynamic: true })

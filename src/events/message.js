@@ -10,8 +10,8 @@ module.exports = {
     if (!prefix) return;
 
     const args = message.content.slice(prefix.length).trim().split(/ +/g);
-
-    const command = client.commands.get(args.shift().toLowerCase());
+    const cmdName = args.shift().toLowerCase();
+    const command = client.resolveCommand(cmdName);
 
     if (!command) return;
 
@@ -24,11 +24,14 @@ module.exports = {
         "Permission Access.",
         `Sorry, ${message.author}, but you need to be a developer to run this command.`
       );
-
-      if (command.userPermissions && !message.member.permissions.has(commandPermissions)) return message.channel.sendCustom(
+    if (
+      command.userPermissions &&
+      !message.member.permissions.has(command.userPermissions)
+    )
+      return message.channel.sendCustom(
         "error",
         "Permission Access.",
-        `Sorry, ${message.author}, but you require the roles ${roles
+        `Sorry, ${message.author}, but you require the permissions ${command.userPermissions
           .map((role) => `\`${role}\``)
           .join(", ")} to use this command.`,
         {
@@ -38,25 +41,22 @@ module.exports = {
           },
         }
       );
+
     if (command.requiredRoles) {
       function resolveRole(roleID) {
         let role = client.config.roles[roleID];
         if (!role) role = roleID;
-        return message.guild.roles.resolve(roleID);
+        return roleID;
       }
 
-      const roles = command.requiredRoles.map((role) => {
-        if (role.toLowerCase() === "developer") return resolveRole("developer");
-        else if (role.toLowerCase() === "staff") return resolveRole("staff");
-        return resolveRole(role);
-      });
+      const roles = command.requiredRoles.map((role) => message.member.roles.cache.some(x => x.id === role));
 
-      if (!message.member.roles.cache.array().includes(roles))
+      if (!roles.every(x => x === true))
         return message.channel.sendCustom(
           "error",
           "Permission Access.",
           `Sorry, ${message.author}, but you require the roles ${roles
-            .map((role) => role.toString())
+            .map((role) => `<@&${role}>`)
             .join(", ")} to use this command.`,
           {
             footer: {
@@ -66,6 +66,20 @@ module.exports = {
           }
         );
     }
+
+    if (command.args && !args.length)
+      return message.channel.sendCustom(
+        "error",
+        "Arguments Error.",
+        command.args,
+        {
+          footer: {
+            name: message.member.displayName,
+            iconURL: message.author.displayAvatarURL(),
+          },
+        }
+      );
+
     try {
       command.run(message, args);
     } catch (error) {

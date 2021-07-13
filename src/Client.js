@@ -75,4 +75,16 @@ module.exports = class BetterDjsClient extends BaseClient {
   login(token) {
     super.login(this.config.token || token);
   }
+
+  /**
+   * Resolve a command.
+   * @param {String} commandName
+   */
+
+  resolveCommand(commandName) {
+    return (
+      client.commands.get(commandName) ||
+      client.commands.get(client.aliases.get(commandName))
+    );
+  }
 };

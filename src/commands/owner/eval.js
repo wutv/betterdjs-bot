@@ -5,6 +5,7 @@ module.exports = {
   name: "eval",
   description: "Eval",
   async run(message, args) {
+    const config = client.config;
     async function sendEmbed(content, input) {
       const toEval = input;
       let embed = new MessageEmbed()
@@ -66,7 +67,6 @@ module.exports = {
       );
     let code = args.map((x) => x);
     code.shift();
-    code = code.join(" ");
     try {
       if (!code)
         return message.channel.sendCustom(
@@ -75,19 +75,14 @@ module.exports = {
           "Please provide what you would like to eval!"
         );
       let evaled;
+      const type = message.content.includes(" --depth=") ? code.find(x => x.includes("--depth="))?.split("--depth=")[1].charAt(0) : null;
+      if (type) code = code.join(" ").split(`--depth=${type}`).join(" ").split(/ +/g);
+      code = code.filter(x => x !== "").join(" ");
       args[0] === "sync"
         ? (evaled = eval(code))
         : (evaled = await eval(`(async () => {
           ${code}
         })()`));
-      const type = args.join(" ").toLowerCase().includes("--depth=")
-        ? args
-            .join(" ")
-            .toLowerCase()
-            .split(/ +/g)
-            .find((x) => x.toLowerCase().includes("--depth="))
-            ?.split("--depth=")[1]
-        : null;
 
       if (typeof evaled !== "string")
         evaled = require("util").inspect(evaled, {
@@ -107,6 +102,5 @@ module.exports = {
       return message.channel.send({ embed });
     }
   },
-  userPermissions: ["ADMINISTRATOR"],
   requiredRoles: ["861323159809687592"],
 };
